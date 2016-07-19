@@ -28,6 +28,7 @@
 <link href="{{asset('admin/Lobibox.min.css') }}" rel="stylesheet" type="text/css"/>
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
 {{--<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->--}}
 {{--<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->--}}
 {{--<!--[if lt IE 9]>--}}
@@ -124,5 +125,6 @@
 <script src="{{asset('admin/lobibox.min.js') }}" type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
 
 @show

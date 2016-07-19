@@ -45,7 +45,7 @@
                 </div>
                 <!-- /.box -->
 
-                <div class="col-md-8">
+                <div class="col-md-8" id="dynamic_cont_tbl_div" style="display:none">
                     <div class="box">
                         <div class="box-header">
                             <h3 class="box-title">Activity log Table</h3>
@@ -240,6 +240,17 @@
     </section>
 
 
+
+
+    </head>
+    <body>
+
+    <div id="dialog-confirm" title="Remove this Activty" style="display: none">
+        <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>This item will be permanently deleted and cannot be recovered. Are you sure?</p>
+    </div>
+
+
+
 @stop
 
 
@@ -350,6 +361,8 @@
             },
             minimumInputLength: 2
         });
+
+
     };
 
 
@@ -429,7 +442,7 @@
     }
 
     function load_activity_table(){
-
+        $("#dynamic_cont_tbl_div").show()
         var company_name_id =  $("#company_name_list").val();
         table = $('#dynamic_cont_tbl').DataTable();
 
@@ -463,18 +476,39 @@
             note('Please select a company', 'warning');
             return;
         }
-        $.getJSON("/remove_activity",
-                {
-                    id:id
+        $("#dialog-confirm").show();
+        $( "#dialog-confirm" ).dialog({
+            resizable: false,
+            height: "auto",
+            width: 400,
+            modal: true,
+            position: { my: 'top', at: 'top+150' },
+            buttons: {
+                "Delete item": function() {
+                    $.getJSON("/remove_activity",
+                            {
+                                id:id
+                            },
+                            function (a) {
+                                if(a){
+
+                                    note('Removed Sucessfully', 'success');
+                                    get_all_cust_activity_list();
+                                }
+
+                            });
+                    $( this ).dialog( "close" );
+                    $("#dialog-confirm").hide();
                 },
-                function (a) {
-                    if(a){
+                Cancel: function() {
+                    $( this ).dialog( "close" );
+                    $("#dialog-confirm").hide();
+                }
+            }
+        });
 
-                        note('Removed Sucessfully', 'success');
-                        get_all_cust_activity_list();
-                    }
 
-                });
+
     }
 
     function get_activity_detail(id){
